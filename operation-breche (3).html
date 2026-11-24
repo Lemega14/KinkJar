@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Opération Brèche</title>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#0c0f14;color:#dfe6ee;font-family:'Bahnschrift','Arial Narrow','Helvetica Neue',Arial,sans-serif;overflow:hidden;-webkit-user-select:none;user-select:none}
+body{display:flex;align-items:center;justify-content:center}
+#wrap{position:relative;width:min(100vw,calc(100vh*800/480));width:min(100vw,calc(100dvh*800/480));aspect-ratio:800/480}
+canvas{width:100%;height:100%;display:block;cursor:crosshair;background:#10151d}
+#ov{position:absolute;z-index:10;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(8,10,14,.92);padding:14px;overflow:auto}
+.box{max-width:540px;width:100%}
+h1{font-size:clamp(28px,6vw,46px);color:#f2a900;letter-spacing:.04em;line-height:1;margin-bottom:6px}
+h2{font-size:clamp(24px,5vw,38px);line-height:1;margin-bottom:8px}
+.sub{color:#8fa3b8;margin-bottom:14px;font-size:15px}
+ul{list-style:none;padding:0;margin:0 0 14px;font-size:15px;line-height:1.55}
+li b{display:inline-block;min-width:92px;color:#f2a900}
+input{font:inherit;font-size:16px;padding:9px 12px;width:100%;margin-bottom:12px;background:#151b26;border:1.5px solid #3a4256;color:#fff;border-radius:3px;-webkit-user-select:text;user-select:text}
+input:focus-visible,button:focus-visible{outline:3px solid #3aa0e0;outline-offset:2px}
+button{font:inherit;font-size:17px;padding:11px 22px;margin:0 8px 8px 0;background:#f2a900;color:#111;border:0;border-radius:3px;cursor:pointer;font-weight:700;letter-spacing:.03em}
+button.alt{background:transparent;color:#f2a900;border:1.5px solid #f2a900}
+button:hover{filter:brightness(1.12)}
+.rk{font-size:14px;color:#aab8c6;margin:6px 0 14px;line-height:1.5}
+.big{font-size:clamp(34px,8vw,56px);color:#f2a900;font-weight:700;line-height:1;margin:4px 0 10px}
+.win{color:#5fd07a}.lose{color:#e0463a}
+#touch,.hint,.stick,.tb,#rot{display:none}
+body{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+body.touch #touch{display:block;position:fixed;inset:0;z-index:3;touch-action:none}
+body.touch .hint{display:block;position:fixed;bottom:8vh;width:22vh;height:22vh;border:2px dashed rgba(244,232,208,.22);border-radius:50%;z-index:2;pointer-events:none}
+#hL{left:5vw}#hR{right:5vw}
+.stick{position:fixed;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:2px solid rgba(244,232,208,.55);background:rgba(244,232,208,.08);z-index:4;pointer-events:none}
+.stick i{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px;border-radius:50%;background:rgba(242,169,0,.75)}
+body.touch .stick.on{display:block}
+body.touch .tb{display:block;position:fixed;right:3vw;width:76px;height:76px;margin:0;padding:0;border-radius:50%;z-index:4;font-size:12px;line-height:1.25;border:2px solid #f2a900;background:rgba(8,10,14,.65);color:#f2a900;touch-action:none;box-shadow:none}
+#bC{top:26%}#bD{top:52%}
+.tb.on{background:#f2a900!important;color:#111!important}
+#rot{position:fixed;inset:0;z-index:20;background:#0c0f14;color:#f2a900;font-size:24px;line-height:1.4;text-align:center;align-items:center;justify-content:center}
+@media (orientation:portrait){body.touch #rot{display:flex}}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="c" width="800" height="480"></canvas>
+  <div id="ov"></div>
+</div>
+
+<div id="touch"></div>
+<div id="hL" class="hint"></div><div id="hR" class="hint"></div>
+<div id="sL" class="stick"><i></i></div><div id="sR" class="stick"><i></i></div>
+<button id="bC" class="tb">CHARGE<br>4</button>
+<button id="bD" class="tb">BOMBE<br>(tenir)</button>
+<div id="rot">Tourne ton téléphone<br>en mode paysage</div>
+<script src="operation-breche.js"></script>
+</body>
+</html>
